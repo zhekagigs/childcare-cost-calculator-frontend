@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { CalculateCost, Child, ChildsCost } from "./costAPI";
-import styles from "@/styles/Childcare.module.css";
+import { CalculateCost, Child, ChildsCost } from "../api/costAPI";
+import styles from "@/styles/Home.module.css";
 
 interface UserFormProps {
   onSave: ChildsCost;
@@ -9,7 +9,7 @@ interface UserFormProps {
 }
 
 // React Form component that asks user to input their child's name, date of birth and price per day of childcare
-export function UserForm(props: UserFormProps) {
+function UserForm(props: UserFormProps) {
   const { setOnSave, setSubmitted } = props;
   const [name, setName] = useState("");
   const [dateOfBirth, setDateOfBirth] = useState("");
@@ -38,7 +38,7 @@ export function UserForm(props: UserFormProps) {
   return (
     <div className={styles.form}>
       <form onSubmit={handleSubmit} className="input-group vertical">
-        <label>Child's name:</label>
+        <label>Child name:</label>
         <input
           type="text"
           value={name}
@@ -89,3 +89,5 @@ export function UserForm(props: UserFormProps) {
     </div>
   );
 }
+
+export default UserForm;

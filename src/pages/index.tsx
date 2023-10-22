@@ -1,6 +1,25 @@
-import Head from 'next/head'
-import styles from '@/styles/Home.module.css'
-import Link from 'next/link'
+import Head from "next/head";
+import styles from "@/styles/Home.module.css";
+import Link from "next/link";
+import { useState } from "react";
+import CostDetails from "./cost-details";
+import { ChildsCost } from "../api/costAPI";
+import UserForm from "./form";
+
+function Childcare() {
+  const [onSave, setOnSave] = useState({} as ChildsCost);
+  const [submitted, setSubmitted] = useState(false);
+  return (
+    <>
+      <UserForm
+        onSave={onSave}
+        setOnSave={setOnSave}
+        setSubmitted={setSubmitted}
+      />
+      <CostDetails onSave={onSave} submitted={submitted} />
+    </>
+  );
+}
 
 export default function Home() {
   return (
@@ -12,10 +31,24 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.centered}>
-            <p> Hello, I'm Evgeny. I am a polyglot software engineer and a dad. 
-              I found out that childcare in London is extremely expensive and for busy parents calculating it can be frustrating,
-              so i created this little  <Link href="/childcare/main"> tool</Link> that might help.</p>
+        <p>
+          {`
+          Hey there! I'm Evgeny, your friendly neighborhood software engineer
+          and a super cool dad. 🚀 You know what's wild? Childcare in London can
+          be insanely pricey, and let's face it, being a parent is already an
+          adventure on its own. So, I put on my tech superhero cape and whipped
+          up this nifty little tool to make your life a bit more fun and a lot
+          less stressful. 🦸‍♂️💻 It's all about taking the pain out of calculating
+          those childcare costs. Say goodbye to the headache of
+          number-crunching, and say hello to a tool that's going to put a smile
+          on your face! 🤓 So, whether you're a busy parent, a fellow Londoner,
+          or just curious about childcare expenses, I'm here to make things a
+          whole lot more enjoyable. Let's dive into the world of childcare cost
+          calculations with a touch of fun! 🎉😄 `}
+          
+        </p>
       </main>
+      <Childcare />
     </>
-  )
+  );
 }

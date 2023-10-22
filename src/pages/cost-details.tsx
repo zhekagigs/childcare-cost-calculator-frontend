@@ -1,11 +1,11 @@
-import { ChildsCost } from "./costAPI";
+import { ChildsCost } from "../api/costAPI";
 
 interface CostDetailsProps {
   onSave: ChildsCost;
   submitted: boolean;
 }
 
-export function CostDetails(props: CostDetailsProps) {
+export default function CostDetails(props: CostDetailsProps) {
   const { onSave, submitted } = props;
   const monthNames = [
     "January",

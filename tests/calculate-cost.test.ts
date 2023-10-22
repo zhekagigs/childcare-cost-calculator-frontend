@@ -1,4 +1,4 @@
-import { CalculateCost, Child } from "../src/pages/childcare/costAPI";
+import { CalculateCost, Child } from "../src/api/costAPI";
 import { describe } from "node:test";
 import 'isomorphic-fetch';
 
