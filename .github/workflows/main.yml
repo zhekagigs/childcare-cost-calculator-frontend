@@ -6,13 +6,21 @@ on:
       - main # Replace with your branch name
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
 
+    - name: Build the project
+      run: npm install && npm run build
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
     - name: Set up AWS CLI
       uses: aws-actions/configure-aws-credentials@v1
       with:
