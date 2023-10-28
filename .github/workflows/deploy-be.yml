@@ -18,8 +18,7 @@ jobs:
             aws-region: eu-west-2
         # sam build 
         - run: sam build --use-container
-          working-directory: childcare-cost-calculator-frontend/hello-world-python-serverless
-
+          working-directory: /home/runner/work/childcare-cost-calculator-frontend/hello-world-python-serverless
 
     # Run Unit tests- Specify unit tests here 
 
