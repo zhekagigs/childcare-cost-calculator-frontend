@@ -85,7 +85,8 @@ function checkStatus(response: any) {
 }
 
 const urlMock = `http://localhost:3000/api/calculate-cost-mock`;
-const urlLocal = `http://127.0.0.1:8080/cost`;
+const urlLocal = `https://hos1gevrm7.execute-api.eu-west-2.amazonaws.com/Prod/hello/ `;
+const urlDeployed = `https://hos1gevrm7.execute-api.eu-west-2.amazonaws.com/Prod/hello/`;
 
 export const CalculateCost = {
   async get(child: Child) {
