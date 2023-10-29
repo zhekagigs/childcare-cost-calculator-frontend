@@ -24,9 +24,9 @@ export default function CostDetails(props: CostDetailsProps) {
   return (
     <>
       {submitted && (
-        <div className="row">
-          <div className="col-sm-6">
-            <div className="card large">
+        <div>
+          <div>
+            <div>
               <section className="section dark">
                 <h3 className="strong">
                   <strong>{onSave.name}</strong>

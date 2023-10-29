@@ -30,8 +30,9 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={styles.centered}>
-        <p>
+      <main>
+        <Childcare />
+        <footer>
           {`
           Hey there! I'm Evgeny, your friendly neighborhood software engineer
           and a super cool dad. 🚀 You know what's wild? Childcare in London can
@@ -46,9 +47,8 @@ export default function Home() {
           whole lot more enjoyable. Let's dive into the world of childcare cost
           calculations with a touch of fun! 🎉😄 `}
           
-        </p>
+        </footer>
       </main>
-      <Childcare />
     </>
   );
 }

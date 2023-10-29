@@ -1,4 +1,4 @@
-import { type } from "os";
+import jsonData from '../../public/secrets.json';
 
 export class Child {
   name: string = "";
@@ -88,12 +88,15 @@ const urlMock = `http://localhost:3000/api/calculate-cost-mock`;
 const urlLocal = `https://hos1gevrm7.execute-api.eu-west-2.amazonaws.com/Prod/hello/ `;
 const urlDeployed = `https://hos1gevrm7.execute-api.eu-west-2.amazonaws.com/Prod/hello/`;
 
+
+const API_KEY_TOKEN = jsonData.token
 export const CalculateCost = {
   async get(child: Child) {
     const request = {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "x-api-key": API_KEY_TOKEN,
       },
       body: JSON.stringify(child),
     };

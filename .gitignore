@@ -34,3 +34,5 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 secrets.md
+secrets.json
+manual_deploy_fe.sh
