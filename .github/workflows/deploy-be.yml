@@ -26,4 +26,4 @@ jobs:
     # Run Unit tests- Specify unit tests here 
 
     # sam deploy
-        - run: sam deploy --no-confirm-changeset --no-fail-on-empty-changeset --stack-name sam-hello-world --s3-bucket arn:aws:s3:::childcare-be-lambda-de --capabilities CAPABILITY_IAM --region eu-west-2
+        - run: sam deploy --no-confirm-changeset --no-fail-on-empty-changeset --stack-name Chidcare-BE --s3-bucket childcare-be-lambda-dev --capabilities CAPABILITY_IAM --region eu-west-2
