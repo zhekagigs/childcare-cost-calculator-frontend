@@ -17,8 +17,11 @@ jobs:
             aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
             aws-region: eu-west-2
         # sam build 
-        - run: sam build --use-container
-          working-directory: /home/runner/work/childcare-cost-calculator-frontend/childcare-cost-calculator-frontend/hello-world-python-serverless
+        - run: |
+            pwd
+            ls -la
+            sam build --use-container
+          working-directory: /home/runner/work/childcare-cost-calculator-frontend/childcare-cost-calculator-frontend/
 
     # Run Unit tests- Specify unit tests here 
 

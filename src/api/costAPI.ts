@@ -1,4 +1,14 @@
-import jsonData from '../../public/secrets.json';
+import * as dotenv from 'dotenv';
+
+dotenv.config();
+// Access the environment variable
+const token = process.env.TOKEN;
+if (!token) {
+    console.error('The TOKEN environment variable is not set.');
+} else {
+    // Use the token in your code
+    console.log('TOKEN:', token);
+}
 
 export class Child {
   name: string = "";
@@ -89,7 +99,7 @@ const urlLocal = `https://hos1gevrm7.execute-api.eu-west-2.amazonaws.com/Prod/he
 const urlDeployed = `https://hos1gevrm7.execute-api.eu-west-2.amazonaws.com/Prod/hello/`;
 
 
-const API_KEY_TOKEN = jsonData.token
+const API_KEY_TOKEN = token as string;
 export const CalculateCost = {
   async get(child: Child) {
     const request = {
