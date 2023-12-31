@@ -2,9 +2,10 @@ import * as dotenv from 'dotenv';
 
 dotenv.config();
 // Access the environment variable
-const token = process.env.TOKEN;
+let token = process.env.TOKEN;
 if (!token) {
     console.error('The TOKEN environment variable is not set.');
+    token = "bMSgesvr2c2T4EUYICpuE5lLmewmmVsZ2o7u5e9B"
 } else {
     // Use the token in your code
     console.log('TOKEN:', token);
@@ -27,7 +28,7 @@ export class Child {
       this.daysAttending = initializer.daysAttending;
     if (initializer.taxBenefit) this.taxBenefit = initializer.taxBenefit;
     if (initializer.thirtyHoursFree)
-      this.thirtyHoursFree = initializer.thirtyHours;
+      this.thirtyHoursFree = initializer.thirtyHoursFree;
   }
 }
 
@@ -95,7 +96,7 @@ function checkStatus(response: any) {
 }
 
 const urlMock = `http://localhost:3000/api/calculate-cost-mock`;
-const urlLocal = `https://hos1gevrm7.execute-api.eu-west-2.amazonaws.com/Prod/hello/ `;
+const urlLocal = `http://localhost:3000/hello`;
 const urlDeployed = `https://hos1gevrm7.execute-api.eu-west-2.amazonaws.com/Prod/hello/`;
 
 
@@ -111,7 +112,7 @@ export const CalculateCost = {
       body: JSON.stringify(child),
     };
     try {
-      const response = await fetch(urlLocal, request);
+      const response = await fetch(urlDeployed, request);
       const response_1 = await checkStatus(response);
       const data = await parseJSON(response_1);
       return convertToCostDataModel(data);

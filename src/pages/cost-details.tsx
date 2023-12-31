@@ -49,7 +49,7 @@ export default function CostDetails(props: CostDetailsProps) {
                   {Object.keys(onSave.taxBenefitMonthly).map((key, index) => {
                     return (
                       <li key={index}>
-                        {monthNames[+key - 1]} {onSave.baseCostsEachMonth[key]}
+                        {monthNames[+key - 1]} {onSave.taxBenefitMonthly[key]}
                       </li>
                     );
                   })}
@@ -59,7 +59,7 @@ export default function CostDetails(props: CostDetailsProps) {
                   {Object.keys(onSave.thirtyHoursFree).map((key, index) => {
                     return (
                       <li key={index}>
-                        {monthNames[+key - 1]} {onSave.baseCostsEachMonth[key]}
+                        {monthNames[+key - 1]} {onSave.thirtyHoursFree[key]}
                       </li>
                     );
                   })}

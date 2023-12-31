@@ -14,19 +14,36 @@ function UserForm(props: UserFormProps) {
   const [name, setName] = useState("");
   const [dateOfBirth, setDateOfBirth] = useState("");
   const [pricePerDay, setPricePerDay] = useState("");
-
+  const [taxBenefit, setTaxBenefit] = useState(false);
+  const [thirtyHoursFree, setThirtyHoursFree] = useState(false);
+  const [daysOfWeek, setDaysOfWeek] = useState([0, 0, 0, 0, 0, 0, 0]);
   const [error, setError] = useState("");
-
   const showError = <pre>{JSON.stringify(error)}</pre>;
+
+  const setDay = (index: number, value: boolean) => {
+    const newDaysOfWeek = [...daysOfWeek];
+    newDaysOfWeek[index] = value ? 1 : 0;
+    setDaysOfWeek(newDaysOfWeek);
+  }
+
+
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    let child = new Child({ name, dateOfBirth, pricePerDay });
+    let child = new Child({
+      name: name,
+      dateOfBirth: dateOfBirth,
+      pricePerDay: pricePerDay,
+      daysAttending: daysOfWeek,
+      taxBenefit: taxBenefit,
+      thirtyHoursFree: thirtyHoursFree,
+    });
+
+
     CalculateCost.get(child)
       .then((data) => {
         setOnSave(data);
         setSubmitted(true);
-        console.log(data);
       })
       .catch((error) => {
         console.log(error);
@@ -60,23 +77,39 @@ function UserForm(props: UserFormProps) {
         <label>Choose days attendance: </label>
         <div className="input-group fluid left">
           <label>Mon</label>
-          <input type="checkbox" id="mon" className="doc" />
+          <input type="checkbox" id="mon" className="doc" onChange={(e) => setDay(0, e.target.checked)}/>
           <label>Tue</label>
-          <input type="checkbox" id="tue" className="doc" />
+          <input type="checkbox" id="tue" className="doc" onChange={(e) => setDay(1, e.target.checked)}/>
           <label>Wed</label>
-          <input type="checkbox" id="wed" className="doc" />
+          <input type="checkbox" id="wed" className="doc" onChange={(e) => setDay(2, e.target.checked)}/>
           <label>Thu</label>
-          <input type="checkbox" id="thu" className="doc" />
+          <input type="checkbox" id="thu" className="doc" 
+          onChange={(e) => setDay(3, e.target.checked)}/>
           <label>Fri</label>
-          <input type="checkbox" id="fri" className="doc" />
+          <input type="checkbox" id="fri" className="doc" 
+         onChange={(e) => setDay(4, e.target.checked)}/>
         </div>
+
         <div className="fluid">
           <label>Tax Benefit</label>
-          <input type="checkbox" id="tax-benefit" className="doc" />
+          <input
+            type="checkbox"
+            id="tax-benefit"
+            className="doc"
+            checked={taxBenefit}
+            onChange={(e) => setTaxBenefit(e.target.checked)}
+          />
         </div>
+        
         <div className="fluid">
           <label>Thirty hours free</label>
-          <input type="checkbox" id="fri" className="fatcheckbox" />
+          <input
+            type="checkbox"
+            id="thirty-hours-free"
+            className="doc"
+            checked = {thirtyHoursFree}
+            onChange={(e) => setThirtyHoursFree(e.target.checked)}
+          />
         </div>
 
         <input
