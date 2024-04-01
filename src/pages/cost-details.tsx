@@ -31,10 +31,10 @@ export default function CostDetails(props: CostDetailsProps) {
                 <h3 className="strong">
                   <strong>{onSave.name}</strong>
                 </h3>
-                <p>Cost for next year: {onSave.perYear}</p>
+                <p>Cost for next year with all discounts: {onSave.perYear}</p>
                 <p>Cost for term: {onSave.perTerm}</p>
                 <p>Cost for week: {onSave.perWeek}</p>
-                <p>Base cost for each month in year 2023:</p>
+                <p>Base cost for each month in a year:</p>
                 <ul>
                   {Object.keys(onSave.baseCostsEachMonth).map((key, index) => {
                     return (

@@ -45,7 +45,7 @@ export default function Home() {
           on your face! 🤓 So, whether you're a busy parent, a fellow Londoner,
           or just curious about childcare expenses, I'm here to make things a
           whole lot more enjoyable. Let's dive into the world of childcare cost
-          calculations with a touch of fun! 🎉😄 `}
+          calculations with a touch of fun! 🎉😄 . No data is stored at the moment. Discounts are stackable`}
           
         </footer>
       </main>

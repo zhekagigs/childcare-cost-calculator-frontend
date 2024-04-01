@@ -20,15 +20,19 @@ def lambda_handler(event, context):
     name = body["name"]
     perDay = float(body["pricePerDay"])
     daysAttending = body["daysAttending"]
+    school_year = int(body["schoolYear"])
 
-    child = cc.Child(name, perDay, None, daysAttending) 
+    if not 2010 < school_year < 2030:
+        school_year = 2024
+
+    child = cc.Child(name, perDay, None, daysAttending, school_year=school_year) 
     
 
     if body["taxBenefit"]:
         child.add_discount(cc.TaxBenefit())
 
     if body["thirtyHoursFree"]:
-        for i in range(4, 13):
+        for i in range(1, 13):
             child.add_discount(cc.ThirtyHoursFree(i, 2023, child.attendance))
     
     if len(child.discounts) > 0:

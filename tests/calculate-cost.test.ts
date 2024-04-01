@@ -11,7 +11,8 @@ describe('testing calculate cost API', () => {
             dateOfBirth: new Date(2020, 3, 3),
             daysAttending: [1, 1, 1, 1, 1, 0, 0],
             taxBenefit: false,
-            thirtyHoursFree: false
+            thirtyHoursFree: false,
+            schoolYear: 2024
         }
         CalculateCost.get(freya).then((result) => console.log(result))
     })
