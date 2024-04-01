@@ -13,7 +13,8 @@
 			0
 		],
 		"taxBenefit": false,
-		"thirtyHoursFree": false
+		"thirtyHoursFree": false,
+		"schoolYear": 2024
 	},
 	"resource": "/hello",
 	"path": "/hello",

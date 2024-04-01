@@ -1,5 +1,5 @@
 import '@/styles/globals.css'
-import '../../node_modules/mini.css/dist/mini-dark.min.css';
+import '../../node_modules/mini.css/dist/mini-default.min.css';
 
 import type { AppProps } from 'next/app'
 

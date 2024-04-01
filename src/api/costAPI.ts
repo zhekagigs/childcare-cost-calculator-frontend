@@ -18,6 +18,7 @@ export class Child {
   daysAttending: number[] = [1, 1, 1, 1, 1, 0, 0];
   taxBenefit: boolean = false;
   thirtyHoursFree: boolean = false;
+  schoolYear: number = 2024;
 
   constructor(initializer?: any) {
     if (!initializer) return;
@@ -29,6 +30,7 @@ export class Child {
     if (initializer.taxBenefit) this.taxBenefit = initializer.taxBenefit;
     if (initializer.thirtyHoursFree)
       this.thirtyHoursFree = initializer.thirtyHoursFree;
+    if (initializer.schoolYear) this.schoolYear = initializer.schoolYear;
   }
 }
 
