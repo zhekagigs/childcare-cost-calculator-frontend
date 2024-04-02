@@ -31,10 +31,11 @@ export default function CostDetails(props: CostDetailsProps) {
                 <h3 className="strong">
                   <strong>{onSave.name}</strong>
                 </h3>
-                <p>Cost for next year with all discounts: {onSave.perYear}</p>
+                <p>Cost for a year with all discounts: {onSave.perYear}</p>
                 <p>Cost for term: {onSave.perTerm}</p>
                 <p>Cost for week: {onSave.perWeek}</p>
                 <p>Base cost for each month in a year:</p>
+                <p>Total saved in a year with all discounts:</p>
                 <ul>
                   {Object.keys(onSave.baseCostsEachMonth).map((key, index) => {
                     return (
@@ -44,7 +45,7 @@ export default function CostDetails(props: CostDetailsProps) {
                     );
                   })}
                 </ul>
-                <p>Cost after tax benefit(averaged) for each month in year 2023:</p>
+                <p>Cost after tax benefit(average to £167 per month) for each month in a year:</p>
                 <ul>
                   {Object.keys(onSave.taxBenefitMonthly).map((key, index) => {
                     return (
@@ -54,7 +55,7 @@ export default function CostDetails(props: CostDetailsProps) {
                     );
                   })}
                 </ul>
-                <p>Cost after thirty hours free for each month in year 2023:</p>
+                <p>Cost after thirty hours free for each month in a year:</p>
                 <ul>
                   {Object.keys(onSave.thirtyHoursFree).map((key, index) => {
                     return (

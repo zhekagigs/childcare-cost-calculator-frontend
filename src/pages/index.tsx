@@ -31,9 +31,8 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <Childcare />
-        <footer>
-          {`
+        <div>
+        {`
           Hey there! I'm Evgeny, your friendly neighborhood software engineer
           and a super cool dad. 🚀 You know what's wild? Childcare in London can
           be insanely pricey, and let's face it, being a parent is already an
@@ -45,8 +44,15 @@ export default function Home() {
           on your face! 🤓 So, whether you're a busy parent, a fellow Londoner,
           or just curious about childcare expenses, I'm here to make things a
           whole lot more enjoyable. Let's dive into the world of childcare cost
-          calculations with a touch of fun! 🎉😄 . No data is stored at the moment. Discounts are stackable`}
-          
+          calculations with a touch of fun! 🎉😄.`}
+        </div>
+        <Childcare />
+        <footer>
+          {`
+          No data is stored. Discounts are stackable. 
+          Not a financial advice. Be mindfull, this is an approximation, 
+          contact your provider for particulars. This site is in beta. 
+          Some of functionality might not work or work incorrectly.`}
         </footer>
       </main>
     </>

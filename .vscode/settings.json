@@ -1,6 +1,6 @@
 {
     "python.testing.pytestArgs": [
-        "hello-world-python-serverless"
+        "hello-world-python-serverless/hello_world/"
     ],
     "python.testing.unittestEnabled": false,
     "python.testing.pytestEnabled": true

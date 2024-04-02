@@ -49,7 +49,7 @@ class Days:
     def __init__(self) -> None:
         self.cal = calendar.Calendar()
 
-    def getWorkDaysMonth(self, year, month):
+    def get_work_days_month(self, year, month):
         weekday_count = 0
 
         for week in self.cal.monthdayscalendar(year, month):
@@ -97,12 +97,14 @@ class Child:
         assert self.discounts is not None
         for discount in self.discounts:
             discount.apply_discount(self.costs)
+        discount_types = [disc.__class__ for disc in self.discounts]
 
-        self.costs.updateSumsForAllMonths()
-        if discount.__class__ == ThirtyHoursFree:
-            self.costs.thirty_hours_free = copy.copy(self.costs.sumsEachMonth)
-        if discount.__class__ == TaxBenefit:
-            self.costs.tax_benefit_monthly = copy.copy(self.costs.sumsEachMonth)
+        if ThirtyHoursFree in discount_types:
+            self.costs.updateSumsForAllMonths()
+            print("discount is thirty hours ")
+        if TaxBenefit in discount_types:
+            # self.costs.tax_benefit_monthly = copy.copy(self.costs.sumsEachMonth)
+            print("discount is tax benefit ")
         self.costs.calculateBaseYear()
         self.costs.calculateBaseTerms()
 
@@ -221,6 +223,7 @@ class ThirtyHoursFree(Discount):
         self.month_num = month_num
         self.year = year
         self.attendance_days_per_week = attendance_per_week
+        self.monthly_discount = 0
 
     def apply_discount(self, data: PriceData):
         self.discount = data.per_day * 3
@@ -232,10 +235,12 @@ class ThirtyHoursFree(Discount):
                 if day[0] in not_discounted_days:
                     continue
                 else:
+                    self.monthly_discount += day[1]
                     day[1] = 0.
                     days_discounted_counter -= 1
                 if days_discounted_counter == 0:
                     break
+        data.thirty_hours_free[self.month_num] = self.monthly_discount
         return data
 
 
@@ -257,9 +262,12 @@ class TaxBenefit(Discount):
             if data.per_year:
                 data.per_year -= self.amountPerYear
             if data.sumsEachMonth:
-                for month in data.sumsEachMonth:
-                    data.sumsEachMonth[month] -= self.amountPerMonth
-                    data.tax_benefit_monthly[month] = copy.copy(data.sumsEachMonth[month])
+                for i, month in enumerate(data.sumsEachMonth):
+                    discount_amount = self.amountPerMonth
+                    if i % 3 == 0:
+                        discount_amount -= 1
+                    data.sumsEachMonth[month] -= discount_amount
+                    data.tax_benefit_monthly[month] = discount_amount
         else:
             print("not applied")
         return data

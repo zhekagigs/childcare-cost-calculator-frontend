@@ -32,10 +32,11 @@ def test_happy_path():
                 'perWeek': None, 
                 'perYear': 26200.0, 
                 'sumsEachMonth': {1: 2300.0, 2: 2100.0, 3: 2100.0, 4: 2200.0, 5: 2300.0, 6: 2000.0, 7: 2300.0, 8: 2200.0, 9: 2100.0, 10: 2300.0, 11: 2100.0, 12: 2200.0}, 
-                'perTerms': {1: 6500.0, 2: 6500.0, 3: 6600.0, 4: 6600.0}, 'baseCostsEachMonth': {1: 2300.0, 2: 2100.0, 3: 2100.0, 4: 2200.0, 5: 2300.0, 6: 2000.0, 7: 2300.0, 8: 2200.0, 9: 2100.0, 10: 2300.0, 11: 2100.0, 12: 2200.0}, 
+                'perTerms': {1: 6500.0, 2: 6500.0, 3: 6600.0, 4: 6600.0}, 
+                'baseCostsEachMonth': {1: 2300.0, 2: 2100.0, 3: 2100.0, 4: 2200.0, 5: 2300.0, 6: 2000.0, 7: 2300.0, 8: 2200.0, 9: 2100.0, 10: 2300.0, 11: 2100.0, 12: 2200.0}, 
                 'taxBenefitMonthly': {}, 
                 'thirtyHoursFree': {}}
-
+    print(freya.costs.toDict())
     assert freya.costs.toDict() == expected
 
 
@@ -43,55 +44,68 @@ def test_30hours():
     """
     Jan.
     23 days = 2300 a month
+    3 days holiday - paid, 2 left days discounted
     9 days x £100 = £900
     Jan is correct.
     Feb 2024.
-    should be paying for 9 days plus two days of holiday
+    should be paying for 12 days (holiday week in full)
     """
     freya = Child("Freya", 100, date(2020, 3, 3), [1, 1, 1, 1, 1, 0, 0])
     for i in range(1, 13):
-        freya.add_discount(ThirtyHoursFree(i, year, freya.attendance))
+        discount = ThirtyHoursFree(i, year, freya.attendance)
+        freya.add_discount(discount)
     freya.apply_discounts()
     print(freya.costs.toDict())
     expected = {'perTerm': None, 
                 'perWeek': None, 
                 'perYear': 14000.0, 
                 'sumsEachMonth': {1: 900.0, 2: 1200.0, 3: 900.0, 4: 1400.0, 5: 1300.0, 6: 800.0, 7: 1100.0, 8: 2200.0, 9: 800.0, 10: 1200.0, 11: 900.0, 12: 1300.0}, 
-                'perTerms': {1: 3000.0, 2: 3500.0, 3: 4100.0, 4: 3400.0}, 'baseCostsEachMonth': {1: 2300.0, 2: 2100.0, 3: 2100.0, 4: 2200.0, 5: 2300.0, 6: 2000.0, 7: 2300.0, 8: 2200.0, 9: 2100.0, 10: 2300.0, 11: 2100.0, 12: 2200.0}, 
+                'perTerms': {1: 3000.0, 2: 3500.0, 3: 4100.0, 4: 3400.0}, 
+                'baseCostsEachMonth': {1: 2300.0, 2: 2100.0, 3: 2100.0, 4: 2200.0, 5: 2300.0, 6: 2000.0, 7: 2300.0, 8: 2200.0, 9: 2100.0, 10: 2300.0, 11: 2100.0, 12: 2200.0}, 
                 'taxBenefitMonthly': {}, 
-                'thirtyHoursFree': {1: 900.0, 2: 1200.0, 3: 900.0, 4: 1400.0, 5: 1300.0, 6: 800.0, 7: 1100.0, 8: 2200.0, 9: 800.0, 10: 1200.0, 11: 900.0, 12: 1300.0}}
-
+                'thirtyHoursFree': {1: 1400.0, 2: 900.0, 3: 1200.0, 4: 800.0, 5: 1000.0, 6: 1200.0, 7: 1200.0, 8: 0.0, 9: 1300.0, 10: 1100.0, 11: 1200.0, 12: 900.0}}
     assert freya.costs.toDict() == expected
 
 def test_Taxbenefit():
     freya = Child("Freya", 100, date(2020, 3, 3), [1, 1, 1, 1, 1, 0, 0])
-    sasha = Child("Sasha", 50, date(2021, 11, 3), [1, 1, 1, 1, 1, 0, 0])
-    print_out(freya, sasha)
     freya.add_discount(TaxBenefit())
-    sasha.add_discount(TaxBenefit())
+    freya.apply_discounts()
+    expected = {'perTerm': None, 'perWeek': None, 'perYear': 24200.0, 
+                'sumsEachMonth': {1: 2134.0, 2: 1933.0, 3: 1933.0, 4: 2034.0, 5: 2133.0, 6: 1833.0, 7: 2134.0, 8: 2033.0, 9: 1933.0, 10: 2134.0, 11: 1933.0, 12: 2033.0}, 
+                'perTerms': {1: 6000.0, 2: 6000.0, 3: 6100.0, 4: 6100.0}, 
+                'baseCostsEachMonth': {1: 2300.0, 2: 2100.0, 3: 2100.0, 4: 2200.0, 5: 2300.0, 6: 2000.0, 7: 2300.0, 8: 2200.0, 9: 2100.0, 10: 2300.0, 11: 2100.0, 12: 2200.0}, 
+                'taxBenefitMonthly': {1: 166, 2: 167, 3: 167, 4: 166, 5: 167, 6: 167, 7: 166, 8: 167, 9: 167, 10: 166, 11: 167, 12: 167}, 
+                'thirtyHoursFree': {}}
+    print(freya.costs.toDict())
+    assert freya.costs.toDict() == expected
 
 def test_30hoursWithTaxBenefit():
     freya = Child("Freya", 100, date(2020, 3, 3), [1, 1, 1, 1, 1, 0, 0])
-    sasha = Child("Sasha", 50, date(2021, 11, 3), [1, 1, 1, 1, 1, 0, 0])
-    print_out(freya, sasha)
-    pass
+    for i in range(1, 13):
+        discount = ThirtyHoursFree(i, year, freya.attendance)
+        freya.add_discount(discount)
+    freya.add_discount(TaxBenefit())
+    freya.apply_discounts()
+    expected = {'perTerm': None, 'perWeek': None, 'perYear': 24200.0, 
+                'sumsEachMonth': {1: 2134.0, 2: 1933.0, 3: 1933.0, 4: 2034.0, 5: 2133.0, 6: 1833.0, 7: 2134.0, 8: 2033.0, 9: 1933.0, 10: 2134.0, 11: 1933.0, 12: 2033.0}, 
+                'perTerms': {1: 6000.0, 2: 6000.0, 3: 6100.0, 4: 6100.0}, 
+                'baseCostsEachMonth': {1: 2300.0, 2: 2100.0, 3: 2100.0, 4: 2200.0, 5: 2300.0, 6: 2000.0, 7: 2300.0, 8: 2200.0, 9: 2100.0, 10: 2300.0, 11: 2100.0, 12: 2200.0}, 
+                'taxBenefitMonthly': {1: 166, 2: 167, 3: 167, 4: 166, 5: 167, 6: 167, 7: 166, 8: 167, 9: 167, 10: 166, 11: 167, 12: 167}, 
+                'thirtyHoursFree': {}}
+    print(freya.costs.toDict())
+    assert freya.costs.toDict() == expected
+    
 
 def test_eligibility_30Hours():
     freya = Child("Freya", 100, date(2020, 3, 3), [1, 1, 1, 1, 1, 0, 0])
-    sasha = Child("Sasha", 50, date(2021, 11, 3), [1, 1, 1, 1, 1, 0, 0])
-    print_out(freya, sasha)
     pass
 
 def test_eligibility_TaxBenefit():
     freya = Child("Freya", 100, date(2020, 3, 3), [1, 1, 1, 1, 1, 0, 0])
-    sasha = Child("Sasha", 50, date(2021, 11, 3), [1, 1, 1, 1, 1, 0, 0])
-    print_out(freya, sasha)
     pass
 
 def test_15Hours():
     freya = Child("Freya", 100, date(2020, 3, 3), [1, 1, 1, 1, 1, 0, 0])
-    sasha = Child("Sasha", 50, date(2021, 11, 3), [1, 1, 1, 1, 1, 0, 0])
-    print_out(freya, sasha)
     pass
 
 def print_out(freya, sasha):
@@ -103,5 +117,7 @@ def print_out(freya, sasha):
     print("With 30 free hours each months: " + str(sasha.costs.thirty_hours_free.values()))
     print("With tax benefit: " + str(sasha.costs.tax_benefit_monthly.values()))
 
-
-test_30hours()
+# test_happy_path()
+# test_30hours()
+# test_Taxbenefit()
+test_30hoursWithTaxBenefit()
