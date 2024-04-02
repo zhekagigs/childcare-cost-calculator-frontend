@@ -96,15 +96,13 @@ class Child:
     def apply_discounts(self):
         assert self.discounts is not None
         for discount in self.discounts:
-            discount.apply_discount(self.costs)
-        discount_types = [disc.__class__ for disc in self.discounts]
-
-        if ThirtyHoursFree in discount_types:
-            self.costs.updateSumsForAllMonths()
-            print("discount is thirty hours ")
-        if TaxBenefit in discount_types:
-            # self.costs.tax_benefit_monthly = copy.copy(self.costs.sumsEachMonth)
-            print("discount is tax benefit ")
+            if discount.__class__ == ThirtyHoursFree:
+                discount.apply_discount(self.costs)
+                self.costs.updateSumsForAllMonths()
+                print("discount is thirty hours ")
+            else:
+                discount.apply_discount(self.costs)
+                print("discount is tax benefit ")
         self.costs.calculateBaseYear()
         self.costs.calculateBaseTerms()
 
