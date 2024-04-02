@@ -33,7 +33,7 @@ def lambda_handler(event, context):
 
     if body["thirtyHoursFree"]:
         for i in range(1, 13):
-            child.add_discount(cc.ThirtyHoursFree(i, 2023, child.attendance))
+            child.add_discount(cc.ThirtyHoursFree(i, school_year, child.attendance))
     
     if len(child.discounts) > 0:
         child.apply_discounts()
